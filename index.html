@@ -12,11 +12,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #fcfcfc;
+      --bg: #f4f4f7; /* Professional Soft Background */
       --card-bg: #ffffff;
       --text: #1a1a1a;
       --accent: #000000;
-      --gold: #c5a059; /* ലോഗോയിലെ ഗോൾഡൻ ഷേഡ് */
+      --gold: #c5a059;
       --max-width: 1100px;
     }
 
@@ -30,6 +30,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    /* ഹെഡർ സ്ക്രോൾ ചെയ്യുമ്പോൾ ഒട്ടി നിൽക്കും */
     header {
       background: #fff;
       padding: 10px;
@@ -37,204 +38,131 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.04);
+      box-shadow: 0 1px 10px rgba(0,0,0,0.05);
     }
 
-    /* --- Brand Identity Section --- */
-    .brand-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-    }
+    .brand-container { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .main-logo { width: 42px; height: auto; animation: logoEntrance 0.6s ease-out forwards; }
 
-    .main-logo {
-      width: 45px; /* Perfect Size for Mobile */
-      height: auto;
-      opacity: 0;
-      transform: scale(0.9);
-      animation: logoEntrance 0.6s ease-out forwards;
-    }
-
-    @keyframes logoEntrance {
-      to { opacity: 1; transform: scale(1); }
-    }
+    @keyframes logoEntrance { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
     h1 {
-      margin: 0;
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      letter-spacing: 7px;
-      text-transform: uppercase;
-      font-weight: 700;
-      display: flex;
-      justify-content: center;
-      color: var(--accent);
+      margin: 0; font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; letter-spacing: 6px;
+      text-transform: uppercase; font-weight: 700;
     }
-    
-    h1 span {
-      display: inline-block;
-      opacity: 0;
-      animation: revealLetter 0.5s forwards;
-    }
-    h1 span:nth-child(n) { animation-delay: 0.3s; }
 
-    @keyframes revealLetter { to { opacity: 1; } }
+    .brand-line { width: 25px; height: 1.5px; background: var(--gold); margin: 5px auto 8px auto; }
 
-    .brand-line {
-      width: 0; height: 1px; background: var(--gold);
-      margin: 4px auto 10px auto;
-      animation: growLine 0.8s ease-out forwards;
-      animation-delay: 0.5s;
-    }
-    @keyframes growLine { to { width: 25px; } }
-
-    /* --- Search Bar --- */
     .search-bar {
-      width: 95%;
-      max-width: 400px;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #f0f0f0;
-      background: #f9f9f9;
-      font-size: 0.85rem;
-      outline: none;
-      text-align: center;
-      margin: 5px auto;
-      display: block;
-      transition: all 0.3s;
+      width: 92%; max-width: 400px; padding: 10px;
+      border-radius: 8px; border: 1px solid #e0e0e0;
+      background: #fdfdfd; font-size: 0.85rem; outline: none;
+      text-align: center; margin: 5px auto; display: block;
     }
-    .search-bar:focus { border-color: var(--gold); background: #fff; }
 
-    /* --- Categories --- */
+    /* Categories */
     .cat-container {
-      background: #fff;
-      padding: 12px 0;
-      display: flex;
-      justify-content: center;
-      overflow-x: auto;
-      gap: 10px;
-      scrollbar-width: none;
-      border-bottom: 1px solid #f5f5f5;
+      background: #fff; padding: 12px 0;
+      display: flex; justify-content: center;
+      overflow-x: auto; gap: 10px; border-bottom: 1px solid #eee;
     }
     .cat-container::-webkit-scrollbar { display: none; }
 
     .cat-btn {
-      padding: 8px 16px;
-      background: #f8f8f8;
-      color: #777;
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: all 0.3s;
+      padding: 7px 15px; background: #f0f0f0; color: #666;
+      font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+      border: none; border-radius: 20px; cursor: pointer; transition: 0.3s;
     }
-    .cat-btn.active { 
-      background: var(--accent); 
-      color: #fff; 
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
+    .cat-btn.active { background: var(--accent); color: #fff; }
 
-    /* --- Product Grid --- */
-    .container { padding: 15px; max-width: var(--max-width); margin: 0 auto; }
-    main { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-
-    @media (min-width: 768px) {
-      main { grid-template-columns: repeat(4, 1fr); gap: 25px; }
-      h1 { font-size: 2rem; }
-      .main-logo { width: 60px; }
-    }
+    /* Product Grid */
+    .container { padding: 12px; max-width: var(--max-width); margin: 0 auto; }
+    main { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 
     .card {
-      background: var(--card-bg);
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-      transition: all 0.3s ease;
+      background: var(--card-bg); border-radius: 12px;
+      overflow: hidden; display: flex; flex-direction: column;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
-    .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-    .card img { width: 100%; aspect-ratio: 3/4; object-fit: cover; background: #fefefe; }
-
+    .card img { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
     .info { padding: 12px; text-align: center; }
-    .info h4 { margin: 0; font-size: 0.85rem; font-weight: 500; color: #444; }
-    .price { display: block; font-weight: 700; font-size: 1.1rem; color: var(--accent); padding: 5px 0; }
-    .rating { font-size: 0.7rem; color: var(--gold); letter-spacing: 1px; }
+    .info h4 { margin: 0; font-size: 0.8rem; font-weight: 500; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .price { display: block; font-weight: 700; font-size: 1rem; margin: 4px 0; }
+    .rating { font-size: 0.7rem; color: var(--gold); }
+    .buy-btn { background: var(--accent); color: #fff; border: none; padding: 12px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; cursor: pointer; width: 100%; }
 
-    .buy-btn {
-      background: var(--accent); color: #fff; border: none;
-      padding: 14px; font-size: 0.75rem; font-weight: 700;
-      text-transform: uppercase; width: 100%; cursor: pointer;
-      letter-spacing: 1px;
-    }
-
-    /* --- Modal Customizations --- */
+    /* --- Full Screen Modal for Professional View --- */
     .modal {
-      display: none; position: fixed; inset: 0; z-index: 9999;
-      background: #ffffff; overflow-y: auto;
+      display: none; position: fixed; inset: 0;
+      z-index: 2000; background: #fff;
+      overflow-y: auto; -webkit-overflow-scrolling: touch;
     }
-    .modal-content {
-      background: #fff; width: 100%; max-width: 500px; margin: 0 auto;
-      min-height: 100vh; position: relative;
-    }
+
     .close-modal {
-      position: absolute; right: 20px; top: 20px; font-size: 30px;
-      background: #fff; width: 45px; height: 45px; border-radius: 50%;
+      position: absolute; right: 15px; top: 15px;
+      font-size: 24px; background: rgba(255,255,255,0.9);
+      width: 38px; height: 38px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1); z-index: 10;
+      z-index: 2010; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
-    .modal-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
-    .modal-info { padding: 30px 20px; padding-bottom: 120px; }
-    .modal-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 10px; }
+
+    .modal-img-container { width: 100%; background: #f9f9f9; }
+    .modal-img { width: 100%; display: block; object-fit: contain; max-height: 70vh; }
+
+    .modal-info { padding: 25px 20px; text-align: left; }
+    .modal-name { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin: 0; }
     .modal-buy-btn {
       background: var(--accent); color: #fff; border: none;
       width: 100%; padding: 18px; font-size: 0.9rem; font-weight: 700;
-      border-radius: 10px; margin-top: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      border-radius: 12px; margin-top: 25px;
     }
 
-    body.modal-open { overflow: hidden; height: 100vh; }
-    body.modal-open .container, body.modal-open header, body.modal-open .cat-container { display: none; }
+    /* സ്ക്രോൾ ലോക്ക് ചെയ്യാൻ */
+    .lock-scroll { position: fixed; width: 100%; overflow: hidden; }
+
+    @media (min-width: 768px) {
+      main { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+      .modal-content { max-width: 500px; margin: 0 auto; border: 1px solid #eee; }
+    }
   </style>
 </head>
 <body>
 
-<header>
+<header id="site-header">
   <div class="brand-container">
     <img src="./logo-main.png" alt="Yektha Logo" class="main-logo">
-    <h1>
-      <span>Y</span><span>E</span><span>K</span><span>T</span><span>H</span><span>A</span>
-    </h1>
+    <h1>YEKTHA</h1>
   </div>
   <div class="brand-line"></div>
-  <input type="text" id="search" placeholder="What are you looking for?" class="search-bar">
+  <input type="text" id="search" placeholder="Search premium collection..." class="search-bar">
 </header>
 
 <div class="cat-container" id="categories"></div>
 
 <div class="container">
   <main id="products-grid">
-    <div id="loading" style="grid-column: 1/-1; text-align: center; padding: 100px; color: #999; font-size: 0.8rem; letter-spacing: 2px;">CURATING...</div>
+    <div id="loading" style="grid-column: 1/-1; text-align: center; padding: 100px; color: #999;">Loading...</div>
   </main>
 </div>
 
 <div id="productModal" class="modal">
   <div class="modal-content">
     <span class="close-modal" onclick="closeModal()">×</span>
-    <img id="modalImg" src="" class="modal-img">
+    <div class="modal-img-container">
+      <img id="modalImg" src="" class="modal-img">
+    </div>
     <div class="modal-info">
       <h2 id="modalName" class="modal-name"></h2>
-      <div id="modalPrice" class="price" style="font-size:1.6rem; color:var(--gold);"></div>
-      <div id="modalRating" class="rating" style="font-size: 0.9rem; margin-bottom:20px;"></div>
-      
-      <p style="font-size: 0.9rem; color: #666; line-height: 1.7;">
-        Exclusively curated premium piece by Yektha. Experience elegance and comfort combined.
+      <div id="modalPrice" class="price" style="font-size:1.5rem; color:var(--gold); margin: 10px 0;"></div>
+      <div id="modalRating" class="rating" style="margin-bottom:15px;"></div>
+      <p style="color: #666; line-height: 1.6; font-size: 0.9rem;">
+        Premium quality handpicked collection by Yektha. Limited edition piece.
       </p>
-      <button id="modalCartBtn" class="modal-buy-btn">ORDER ON WHATSAPP</button>
-      <button class="back-btn" onclick="closeModal()" style="background:none; border:none; width:100%; color:#999; margin-top:15px; font-size:0.7rem; cursor:pointer; text-transform:uppercase; letter-spacing:1px;">← Back to Collection</button>
+      <button id="modalCartBtn" class="modal-buy-btn">ORDER VIA WHATSAPP</button>
+      <div style="text-align: center; margin-top: 15px;">
+        <span onclick="closeModal()" style="color:#999; font-size: 0.75rem; cursor:pointer; text-transform: uppercase;">← Back to Shop</span>
+      </div>
     </div>
   </div>
 </div>
@@ -243,6 +171,7 @@
   const SHEET_ID = '1HyGFrTu37DJ4u9mxx2vK0aBC5B_yqViRGESUEkV34aU';
   const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
   let allProducts = [];
+  let scrollPos = 0; // സ്ക്രോൾ പൊസിഷൻ സേവ് ചെയ്യാൻ
 
   async function fetchProducts() {
     try {
@@ -260,7 +189,7 @@
       setupCategories();
       displayProducts(allProducts);
     } catch (e) {
-      document.getElementById('products-grid').innerHTML = "<div style='grid-column:1/-1; text-align:center;'>Unable to load collection.</div>";
+      document.getElementById('products-grid').innerHTML = "Error loading collection.";
     }
   }
 
@@ -268,13 +197,12 @@
     const grid = document.getElementById('products-grid');
     grid.innerHTML = products.map(p => `
       <div class="card" onclick="openModal('${p.name.replace(/'/g, "\\'")}', '${p.price}', '${p.rating}', '${p.photo.replace(/'/g, "\\'")}')">
-        <img src="${p.photo}" loading="lazy" alt="${p.name}">
+        <img src="${p.photo}" loading="lazy">
         <div class="info">
           <h4>${p.name}</h4>
           <span class="price">₹${p.price}</span>
           <div class="rating">${p.rating}</div>
         </div>
-        <button class="buy-btn">View Details</button>
       </div>
     `).join('');
   }
@@ -290,30 +218,40 @@
   function filter(cat, btn) {
     document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    const filtered = cat === 'All' ? allProducts : allProducts.filter(p => p.category === cat);
-    displayProducts(filtered);
+    displayProducts(cat === 'All' ? allProducts : allProducts.filter(p => p.category === cat));
   }
 
   function openModal(name, price, rating, photo) {
+    scrollPos = window.pageYOffset; // നിലവിലെ സ്ഥലം സേവ് ചെയ്യുന്നു
+    
     document.getElementById('modalName').textContent = name;
     document.getElementById('modalPrice').textContent = '₹' + price;
     document.getElementById('modalRating').textContent = rating;
     document.getElementById('modalImg').src = photo;
 
     document.getElementById('modalCartBtn').onclick = () => {
-      const wpNumber = "7594069256";
-      const msg = encodeURIComponent(`Hi Yektha! I love this: ${name} (₹${price}). Is it available?`);
-      window.open(`https://wa.me/${wpNumber}?text=${msg}`, "_blank");
+      const msg = encodeURIComponent(`Hi Yektha! I'm interested in: ${name} (₹${price})`);
+      window.open(`https://wa.me/7594069256?text=${msg}`, "_blank");
     };
 
     const modal = document.getElementById('productModal');
     modal.style.display = "block";
-    document.body.classList.add('modal-open');
+    
+    // ബോഡി സ്ക്രോൾ ലോക്ക് ചെയ്യുന്നു (ബാക്ക് അടിക്കുമ്പോൾ പ്രശ്നം വരാതിരിക്കാൻ)
+    document.body.style.top = `-${scrollPos}px`;
+    document.body.classList.add('lock-scroll');
   }
 
   function closeModal() {
-    document.getElementById('productModal').style.display = "none";
-    document.body.classList.remove('modal-open');
+    const modal = document.getElementById('productModal');
+    modal.style.display = "none";
+    
+    // ലോക്ക് മാറ്റുന്നു
+    document.body.classList.remove('lock-scroll');
+    document.body.style.top = '';
+    
+    // പഴയ സ്ഥാനത്തേക്ക് സ്ക്രോൾ ചെയ്യുന്നു
+    window.scrollTo(0, scrollPos);
   }
 
   document.getElementById('search').oninput = e => {
