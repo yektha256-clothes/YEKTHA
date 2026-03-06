@@ -3,16 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Yektha - Mobile Premium</title>
-  
+  <title>Yektha - Premium Curations</title>
+ 
+  <link rel="icon" type="image/jpeg" href="./logo.jpeg">
+  <link rel="apple-touch-icon" sizes="1024x1024" href="./logo.jpeg">
+  <link rel="shortcut icon" href="./logo.jpeg">
+ 
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-   
   <style>
     :root {
       --bg: #fcfcfc;
       --card-bg: #ffffff;
       --text: #1a1a1a;
       --accent: #000000;
+      --gold: #c5a059; /* ലോഗോയിലെ ഗോൾഡൻ ഷേഡ് */
+      --max-width: 1100px;
     }
 
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -25,249 +30,218 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* --- Mobile Optimized Header --- */
     header {
       background: #fff;
-      padding: 15px 10px;
+      padding: 10px;
       text-align: center;
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      box-shadow: 0 2px 15px rgba(0,0,0,0.04);
     }
 
-    h1 { 
-      margin: 0; 
+    /* --- Brand Identity Section --- */
+    .brand-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .main-logo {
+      width: 45px; /* Perfect Size for Mobile */
+      height: auto;
+      opacity: 0;
+      transform: scale(0.9);
+      animation: logoEntrance 0.6s ease-out forwards;
+    }
+
+    @keyframes logoEntrance {
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    h1 {
+      margin: 0;
       font-family: 'Playfair Display', serif;
-      font-size: 1.6rem; 
-      letter-spacing: 5px;
+      font-size: 1.5rem;
+      letter-spacing: 7px;
       text-transform: uppercase;
       font-weight: 700;
+      display: flex;
+      justify-content: center;
       color: var(--accent);
     }
+    
+    h1 span {
+      display: inline-block;
+      opacity: 0;
+      animation: revealLetter 0.5s forwards;
+    }
+    h1 span:nth-child(n) { animation-delay: 0.3s; }
+
+    @keyframes revealLetter { to { opacity: 1; } }
 
     .brand-line {
-      width: 30px;
-      height: 1.5px;
-      background: var(--accent);
-      margin: 5px auto 12px auto;
+      width: 0; height: 1px; background: var(--gold);
+      margin: 4px auto 10px auto;
+      animation: growLine 0.8s ease-out forwards;
+      animation-delay: 0.5s;
     }
+    @keyframes growLine { to { width: 25px; } }
 
+    /* --- Search Bar --- */
     .search-bar {
-      width: 100%;
-      padding: 10px 15px;
-      border-radius: 4px;
-      border: 1px solid #eee;
-      background: #f8f8f8;
-      font-size: 0.8rem;
+      width: 95%;
+      max-width: 400px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #f0f0f0;
+      background: #f9f9f9;
+      font-size: 0.85rem;
       outline: none;
       text-align: center;
+      margin: 5px auto;
+      display: block;
+      transition: all 0.3s;
     }
+    .search-bar:focus { border-color: var(--gold); background: #fff; }
 
-    /* --- Smooth Category Scroller --- */
+    /* --- Categories --- */
     .cat-container {
       background: #fff;
-      padding: 10px 0;
+      padding: 12px 0;
       display: flex;
+      justify-content: center;
       overflow-x: auto;
-      gap: 12px;
-      padding-left: 10px;
+      gap: 10px;
       scrollbar-width: none;
-      border-bottom: 1px solid #f1f1f1;
+      border-bottom: 1px solid #f5f5f5;
     }
     .cat-container::-webkit-scrollbar { display: none; }
 
     .cat-btn {
-      padding: 6px 15px;
-      background: transparent;
-      color: #999;
+      padding: 8px 16px;
+      background: #f8f8f8;
+      color: #777;
       font-size: 0.65rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
-      white-space: nowrap;
       border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
     }
-    .cat-btn.active { color: #000; border-bottom: 2px solid #000; }
-
-    /* --- Perfect Mobile Grid --- */
-    .container { 
-      padding: 8px; /* വശങ്ങളിലെ ഗ്യാപ്പ് കുറച്ചു */
+    .cat-btn.active { 
+      background: var(--accent); 
+      color: #fff; 
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
-    main { 
-      display: grid; 
-      grid-template-columns: repeat(2, 1fr); 
-      gap: 8px; /* പ്രോഡക്റ്റുകൾക്കിടയിലെ ഗ്യാപ്പ് */
+    /* --- Product Grid --- */
+    .container { padding: 15px; max-width: var(--max-width); margin: 0 auto; }
+    main { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+
+    @media (min-width: 768px) {
+      main { grid-template-columns: repeat(4, 1fr); gap: 25px; }
+      h1 { font-size: 2rem; }
+      .main-logo { width: 60px; }
     }
 
     .card {
       background: var(--card-bg);
-      border: 1px solid #efefef;
+      border-radius: 8px;
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      transition: all 0.3s ease;
     }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+    .card img { width: 100%; aspect-ratio: 3/4; object-fit: cover; background: #fefefe; }
 
-    .card img { width: 100%; aspect-ratio: 1/1.2; object-fit: cover; }
-
-    /* Space 0 Styling */
-    .info { padding: 6px; }
-    .info h4 { 
-      margin: 0; 
-      font-size: 0.75rem; 
-      font-weight: 400; 
-      line-height: 1.1; 
-      color: #333;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .price { 
-      display: block;
-      font-weight: 700; 
-      font-size: 0.95rem; 
-      margin: 0;
-      padding: 2px 0;
-    }
-    .rating { 
-      font-size: 0.6rem; 
-      margin: 0;
-      padding-bottom: 4px;
-    }
+    .info { padding: 12px; text-align: center; }
+    .info h4 { margin: 0; font-size: 0.85rem; font-weight: 500; color: #444; }
+    .price { display: block; font-weight: 700; font-size: 1.1rem; color: var(--accent); padding: 5px 0; }
+    .rating { font-size: 0.7rem; color: var(--gold); letter-spacing: 1px; }
 
     .buy-btn {
-      background: #000;
-      color: #fff;
-      border: none;
-      padding: 10px;
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
+      background: var(--accent); color: #fff; border: none;
+      padding: 14px; font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; width: 100%; cursor: pointer;
       letter-spacing: 1px;
-      width: 100%;
     }
 
-    /* --- Mobile Full-Screen Modal --- */
+    /* --- Modal Customizations --- */
     .modal {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background: #ffffff; /* ഫുൾ വൈറ്റ് ഫോൺ ആപ്പ് ഫീൽ */
-      overflow-y: auto;
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: #ffffff; overflow-y: auto;
     }
-
     .modal-content {
-      width: 100%;
-      min-height: 100%;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      background: #fff; width: 100%; max-width: 500px; margin: 0 auto;
+      min-height: 100vh; position: relative;
     }
-
     .close-modal {
-      position: absolute;
-      right: 15px; top: 15px;
-      font-size: 24px;
-      background: rgba(255,255,255,0.8);
-      width: 35px; height: 35px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      z-index: 10;
+      position: absolute; right: 20px; top: 20px; font-size: 30px;
+      background: #fff; width: 45px; height: 45px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1); z-index: 10;
     }
-
-    .modal-img {
-      width: 100%;
-      max-height: 50vh;
-      object-fit: contain;
-      display: block;
-      margin: 0 auto;
-      background-color: #f9f9f9;
-    }
-    
-    .modal-info { 
-        padding: 20px; 
-        text-align: left; /* മൊബൈലിൽ ലെഫ്റ്റ് അലൈൻ ആണ് നല്ലത് */
-    }
-    
-    .modal-name {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.4rem;
-        margin: 0;
-    }
-
+    .modal-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
+    .modal-info { padding: 30px 20px; padding-bottom: 120px; }
+    .modal-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 10px; }
     .modal-buy-btn {
-      background: #000;
-      color: #fff;
-      border: none;
-      width: 100%;
-      padding: 16px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      margin-top: 20px;
-      position: sticky;
-      bottom: 20px;
+      background: var(--accent); color: #fff; border: none;
+      width: 100%; padding: 18px; font-size: 0.9rem; font-weight: 700;
+      border-radius: 10px; margin-top: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
 
-    .back-btn {
-      background: transparent;
-      color: #999;
-      border: none;
-      width: 100%;
-      padding: 15px;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
+    body.modal-open { overflow: hidden; height: 100vh; }
+    body.modal-open .container, body.modal-open header, body.modal-open .cat-container { display: none; }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>Yektha</h1>
+  <div class="brand-container">
+    <img src="./logo-main.png" alt="Yektha Logo" class="main-logo">
+    <h1>
+      <span>Y</span><span>E</span><span>K</span><span>T</span><span>H</span><span>A</span>
+    </h1>
+  </div>
   <div class="brand-line"></div>
-  <input type="text" id="search" placeholder="Search curated products..." class="search-bar">
+  <input type="text" id="search" placeholder="What are you looking for?" class="search-bar">
 </header>
 
 <div class="cat-container" id="categories"></div>
 
 <div class="container">
   <main id="products-grid">
-    <div id="loading" style="grid-column: 1/-1; text-align: center; padding: 100px; color: #ccc; font-size: 0.7rem;">LOADING...</div>
+    <div id="loading" style="grid-column: 1/-1; text-align: center; padding: 100px; color: #999; font-size: 0.8rem; letter-spacing: 2px;">CURATING...</div>
   </main>
 </div>
 
 <div id="productModal" class="modal">
   <div class="modal-content">
-    <span class="close-modal" onclick="closeModal()">&times;</span>
-    <img id="modalImg" src="">
+    <span class="close-modal" onclick="closeModal()">×</span>
+    <img id="modalImg" src="" class="modal-img">
     <div class="modal-info">
       <h2 id="modalName" class="modal-name"></h2>
-      <div id="modalPrice" class="price" style="font-size:1.3rem; margin-top:5px;"></div>
-      <div id="modalRating" class="rating" style="font-size: 0.7rem;"></div>
+      <div id="modalPrice" class="price" style="font-size:1.6rem; color:var(--gold);"></div>
+      <div id="modalRating" class="rating" style="font-size: 0.9rem; margin-bottom:20px;"></div>
       
-      <p style="font-size: 0.8rem; color: #666; line-height: 1.5; margin-top: 15px;">
-        Premium quality product curated by Yektha. Click the button below to complete your order via WhatsApp.
+      <p style="font-size: 0.9rem; color: #666; line-height: 1.7;">
+        Exclusively curated premium piece by Yektha. Experience elegance and comfort combined.
       </p>
-
       <button id="modalCartBtn" class="modal-buy-btn">ORDER ON WHATSAPP</button>
-      <button class="back-btn" onclick="closeModal()">← BACK TO COLLECTION</button>
+      <button class="back-btn" onclick="closeModal()" style="background:none; border:none; width:100%; color:#999; margin-top:15px; font-size:0.7rem; cursor:pointer; text-transform:uppercase; letter-spacing:1px;">← Back to Collection</button>
     </div>
   </div>
 </div>
 
 <script>
-  const SHEET_ID = '1HyGFrTu37DJ4u9mxx2vK0aBC5B_yqViRGESUEkV34aU'; 
+  const SHEET_ID = '1HyGFrTu37DJ4u9mxx2vK0aBC5B_yqViRGESUEkV34aU';
   const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
-
   let allProducts = [];
 
   async function fetchProducts() {
@@ -276,34 +250,31 @@
       const text = await response.text();
       const jsonText = text.match(/google\.visualization\.Query\.setResponse\((.*)\)/)[1];
       const data = JSON.parse(jsonText);
-      const rows = data.table.rows;
-
-      allProducts = rows.map(row => ({
-        name: row.c[0] ? row.c[0].v : 'Product',
-        price: row.c[1] ? row.c[1].v : '0',
-        rating: row.c[2] ? row.c[2].v : '⭐⭐⭐⭐',
-        category: row.c[3] ? row.c[3].v : 'General',
-        photo: row.c[4] ? row.c[4].v : 'https://via.placeholder.com/500'
+      allProducts = data.table.rows.map(row => ({
+        name: row.c[0]?.v || 'Product',
+        price: row.c[1]?.v || '0',
+        rating: row.c[2]?.v || '⭐⭐⭐⭐',
+        category: row.c[3]?.v || 'General',
+        photo: row.c[4]?.v || 'https://via.placeholder.com/500'
       }));
-
       setupCategories();
       displayProducts(allProducts);
     } catch (e) {
-      document.getElementById('products-grid').innerHTML = "<div style='grid-column:1/-1; text-align:center;'>Error loading.</div>";
+      document.getElementById('products-grid').innerHTML = "<div style='grid-column:1/-1; text-align:center;'>Unable to load collection.</div>";
     }
   }
 
   function displayProducts(products) {
     const grid = document.getElementById('products-grid');
     grid.innerHTML = products.map(p => `
-      <div class="card" onclick="openModal('${p.name.replace(/'/g, "\\'")}', '${p.price}', '${p.rating}', '${p.photo}')">
-        <img src="${p.photo}" loading="lazy">
+      <div class="card" onclick="openModal('${p.name.replace(/'/g, "\\'")}', '${p.price}', '${p.rating}', '${p.photo.replace(/'/g, "\\'")}')">
+        <img src="${p.photo}" loading="lazy" alt="${p.name}">
         <div class="info">
           <h4>${p.name}</h4>
           <span class="price">₹${p.price}</span>
           <div class="rating">${p.rating}</div>
         </div>
-        <button class="buy-btn">VIEW</button>
+        <button class="buy-btn">View Details</button>
       </div>
     `).join('');
   }
@@ -312,7 +283,7 @@
     const categoriesDiv = document.getElementById('categories');
     const uniqueCats = ['All', ...new Set(allProducts.map(p => p.category))];
     categoriesDiv.innerHTML = uniqueCats.map(c => `
-      <div class="cat-btn ${c==='All'?'active':''}" onclick="filter('${c}', this)">${c}</div>
+      <button class="cat-btn ${c==='All'?'active':''}" onclick="filter('${c}', this)">${c}</button>
     `).join('');
   }
 
@@ -324,24 +295,25 @@
   }
 
   function openModal(name, price, rating, photo) {
-    document.getElementById('modalName').innerText = name;
-    document.getElementById('modalPrice').innerText = '₹' + price;
-    document.getElementById('modalRating').innerText = rating;
+    document.getElementById('modalName').textContent = name;
+    document.getElementById('modalPrice').textContent = '₹' + price;
+    document.getElementById('modalRating').textContent = rating;
     document.getElementById('modalImg').src = photo;
-    
+
     document.getElementById('modalCartBtn').onclick = () => {
       const wpNumber = "7594069256";
-      const msg = encodeURIComponent(`Hello Yektha! I'm interested in: ${name} (₹${price})`);
+      const msg = encodeURIComponent(`Hi Yektha! I love this: ${name} (₹${price}). Is it available?`);
       window.open(`https://wa.me/${wpNumber}?text=${msg}`, "_blank");
     };
 
-    document.getElementById('productModal').style.display = "block";
-    document.body.style.overflow = "hidden";
+    const modal = document.getElementById('productModal');
+    modal.style.display = "block";
+    document.body.classList.add('modal-open');
   }
 
-  function closeModal() { 
-    document.getElementById('productModal').style.display = "none"; 
-    document.body.style.overflow = "auto";
+  function closeModal() {
+    document.getElementById('productModal').style.display = "none";
+    document.body.classList.remove('modal-open');
   }
 
   document.getElementById('search').oninput = e => {
@@ -351,10 +323,5 @@
 
   fetchProducts();
 </script>
-
 </body>
 </html>
-
-
-
-
